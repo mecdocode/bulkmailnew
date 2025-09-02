@@ -10,8 +10,8 @@
   ],
   "scripts": {
     "dev": "concurrently \"pnpm --filter client dev\" \"pnpm --filter server dev\"",
-    "build": "pnpm build:all",
-    "build:all": "pnpm --filter shared build && pnpm --filter client build && pnpm --filter server build",
+    "build": "pnpm --filter client build",
+    "vercel-build": "pnpm --filter shared build && pnpm --filter server build && pnpm --filter client build",
     "start": "pnpm --filter server start",
     "clean": "pnpm --filter client clean && pnpm --filter server clean",
     "type-check": "pnpm --filter client type-check && pnpm --filter server type-check"
