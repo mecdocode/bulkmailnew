@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Upload, Users, ArrowRight, ArrowLeft, AlertCircle } from 'lucide-react'
 import { WizardStepper } from '../components/WizardStepper'
