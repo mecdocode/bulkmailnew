@@ -1,6 +1,6 @@
 {
-  "buildCommand": "pnpm build",
-  "outputDirectory": "client/dist",
+  "buildCommand": "pnpm build && mkdir public && cp -r client/dist/* public/",
+  "outputDirectory": "public",
   "functions": {
     "api/*.js": {
       "runtime": "nodejs18.x"
