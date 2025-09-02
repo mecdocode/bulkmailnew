@@ -21,22 +21,9 @@ export function startSendRoute(upload: Multer): Router {
 
       // Parse JSON strings
       const recipients: Recipient[] = JSON.parse(recipientsData)
+      const smtp: SMTPConfig = JSON.parse(smtpConfig)
       const email: EmailData = JSON.parse(emailData)
       const pacing: PacingConfig = JSON.parse(pacingConfig)
-
-      let smtp: SMTPConfig;
-      if (process.env.NODE_ENV === 'production') {
-        // In production, SMTP config is loaded from env variables in SMTPService
-        // We create a placeholder here for session data, hiding credentials.
-        smtp = {
-          host: process.env.SMTP_HOST || 'production-smtp',
-          port: parseInt(process.env.SMTP_PORT || '587'),
-          secure: process.env.SMTP_SECURE === 'true',
-          auth: { user: process.env.SMTP_USER || 'user', pass: '********' },
-        };
-      } else {
-        smtp = JSON.parse(smtpConfig);
-      }
 
       // Validate recipients
       if (!recipients || recipients.length === 0) {
@@ -96,11 +83,7 @@ export function startSendRoute(upload: Multer): Router {
       sessionVault.createSession(session)
 
       // Setup SMTP transporter
-      if (process.env.NODE_ENV === 'production') {
-        await smtpService.createTransporter(); // Uses env vars
-      } else {
-        await smtpService.createTransporter(smtp); // Uses config from client
-      }
+      await smtpService.createTransporter(smtp)
 
       // Test SMTP connection
       const testResult = await smtpService.testConnection()

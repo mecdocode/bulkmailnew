@@ -12,33 +12,15 @@ export class SMTPService {
   private transporter: nodemailer.Transporter | null = null
   private config: SMTPConfig | null = null
 
-  async createTransporter(config?: SMTPConfig): Promise<void> {
-    let smtpConfig: SMTPConfig;
-
-    if (process.env.NODE_ENV === 'production') {
-      smtpConfig = {
-        host: process.env.SMTP_HOST || '',
-        port: parseInt(process.env.SMTP_PORT || '587'),
-        secure: process.env.SMTP_SECURE === 'true',
-        auth: {
-          user: process.env.SMTP_USER || '',
-          pass: process.env.SMTP_PASS || '',
-        },
-      };
-    } else if (config) {
-      smtpConfig = config;
-    } else {
-      throw new Error('SMTP configuration is missing.');
-    }
-
-    this.config = smtpConfig;
+  async createTransporter(config: SMTPConfig): Promise<void> {
+    this.config = config
     this.transporter = nodemailer.createTransport({
-      host: smtpConfig.host,
-      port: smtpConfig.port,
-      secure: smtpConfig.secure,
+      host: config.host,
+      port: config.port,
+      secure: config.secure,
       auth: {
-        user: smtpConfig.auth.user,
-        pass: smtpConfig.auth.pass,
+        user: config.auth.user,
+        pass: config.auth.pass,
       },
       pool: true, // Use connection pooling
       maxConnections: 5,
