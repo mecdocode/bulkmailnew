@@ -1,6 +1,6 @@
-import nodemailer from 'nodemailer'
+const nodemailer = require('nodemailer')
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     const smtpConfig = req.body
 
     // Validate required fields
-    if (!smtpConfig.host || !smtpConfig.port || !smtpConfig.auth?.user || !smtpConfig.auth?.pass) {
+    if (!smtpConfig || !smtpConfig.host || !smtpConfig.port || !smtpConfig.auth?.user || !smtpConfig.auth?.pass) {
       return res.status(400).json({
         success: false,
         error: 'Missing required SMTP configuration fields'
@@ -31,12 +31,15 @@ export default async function handler(req, res) {
     // Create transporter for testing
     const transporter = nodemailer.createTransporter({
       host: smtpConfig.host,
-      port: smtpConfig.port,
-      secure: smtpConfig.secure,
+      port: parseInt(smtpConfig.port),
+      secure: smtpConfig.secure || false,
       auth: {
         user: smtpConfig.auth.user,
         pass: smtpConfig.auth.pass,
-      }
+      },
+      connectionTimeout: 10000,
+      greetingTimeout: 5000,
+      socketTimeout: 10000
     })
     
     // Test connection
@@ -49,16 +52,16 @@ export default async function handler(req, res) {
         details: {
           host: smtpConfig.host,
           port: smtpConfig.port,
-          secure: smtpConfig.secure
+          secure: smtpConfig.secure || false
         }
       }
 
-      res.json({
+      res.status(200).json({
         success: true,
         data: response
       })
     } catch (testError) {
-      res.json({
+      res.status(200).json({
         success: true,
         data: {
           success: false,
@@ -66,14 +69,16 @@ export default async function handler(req, res) {
         }
       })
     } finally {
-      transporter.close()
+      if (transporter && typeof transporter.close === 'function') {
+        transporter.close()
+      }
     }
 
   } catch (error) {
     console.error('SMTP test error:', error)
     res.status(500).json({
       success: false,
-      error: `SMTP test failed: ${error.message}`
+      error: `SMTP test failed: ${error.message || 'Unknown error'}`
     })
   }
 }
