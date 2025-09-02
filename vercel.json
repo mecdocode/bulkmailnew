@@ -1,6 +1,6 @@
 {
-  "buildCommand": "pnpm --filter shared build && pnpm --filter client build",
-  "outputDirectory": "client/dist",
+  "buildCommand": "pnpm --filter shared build && pnpm --filter client build && node scripts/copy-dist.js",
+  "outputDirectory": "dist",
   "functions": {
     "api/*.js": {
       "runtime": "nodejs18.x"
