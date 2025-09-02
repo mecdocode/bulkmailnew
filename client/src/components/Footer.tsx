@@ -1,4 +1,3 @@
-import React from 'react'
 import { Shield, Zap, Users } from 'lucide-react'
 
 export function Footer() {

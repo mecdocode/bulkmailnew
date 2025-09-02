@@ -68,7 +68,7 @@ export default function Monitor() {
         case 'session_completed':
           // Update session status
           if (session) {
-            setSession(prev => prev ? { ...prev, status: getSessionStatus(event.type) } : null)
+            setSession((prev: any) => prev ? { ...prev, status: getSessionStatus(event.type) } : null)
           }
           break
 
@@ -87,13 +87,13 @@ export default function Monitor() {
             timestamp: new Date(event.timestamp),
             retryCount: (event.type === 'email_failed' || event.type === 'email_retry') ? event.data.retryCount : 0
           }
-          setLogs(prev => [logEntry, ...prev].slice(0, 1000)) // Keep last 1000 logs
+          setLogs((prev: any) => [logEntry, ...prev].slice(0, 1000)) // Keep last 1000 logs
           break
 
         case 'stats_updated':
           // Update session stats
           if (session) {
-            setSession(prev => prev ? {
+            setSession((prev: any) => prev ? {
               ...prev,
               stats: {
                 total: event.data.total,

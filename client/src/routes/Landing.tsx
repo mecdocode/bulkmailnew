@@ -1,4 +1,3 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowRight, Mail, Shield, Zap, Users, CheckCircle } from 'lucide-react'
 

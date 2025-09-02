@@ -1,4 +1,3 @@
-import React from 'react'
 import { Check, ChevronRight } from 'lucide-react'
 
 interface Step {
@@ -13,7 +12,7 @@ interface WizardStepperProps {
   currentStep: string
 }
 
-export function WizardStepper({ steps, currentStep }: WizardStepperProps) {
+export function WizardStepper({ steps }: WizardStepperProps) {
   return (
     <nav className="bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,4 +1,3 @@
-import React from 'react'
 import { SMTPConfig } from '@bulk-email/shared'
 
 interface SMTPFormProps {

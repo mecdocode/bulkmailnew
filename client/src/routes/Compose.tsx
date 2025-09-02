@@ -43,7 +43,7 @@ export default function Compose() {
     // Set default from address from SMTP config
     try {
       const smtp = JSON.parse(smtpConfig)
-      setEmailData(prev => ({ ...prev, from: smtp.auth.user }))
+      setEmailData((prev: any) => ({ ...prev, from: smtp.auth.user }))
     } catch (error) {
       console.error('Failed to parse SMTP config:', error)
     }
@@ -86,16 +86,16 @@ export default function Compose() {
       contentType: file.type
     }))
     
-    setEmailData(prev => ({ ...prev, attachments: processedAttachments }))
+    setEmailData((prev: any) => ({ ...prev, attachments: processedAttachments }))
   }
 
   const removeAttachment = (index: number) => {
     // Remove from both the file array and email data
     const newFiles = attachmentFiles.filter((_, i) => i !== index)
     setAttachmentFiles(newFiles)
-    setEmailData(prev => ({
+    setEmailData((prev: any) => ({
       ...prev,
-      attachments: prev.attachments?.filter((_, i) => i !== index) || []
+      attachments: prev.attachments?.filter((_: any, i: number) => i !== index) || []
     }))
   }
 
@@ -131,7 +131,7 @@ export default function Compose() {
                 <input
                   type="email"
                   value={emailData.from}
-                  onChange={(e) => setEmailData(prev => ({ ...prev, from: e.target.value }))}
+                  onChange={(e) => setEmailData((prev: any) => ({ ...prev, from: e.target.value }))}
                   className="input w-full"
                   placeholder="sender@example.com"
                 />
@@ -144,7 +144,7 @@ export default function Compose() {
                 <input
                   type="text"
                   value={emailData.subject}
-                  onChange={(e) => setEmailData(prev => ({ ...prev, subject: e.target.value }))}
+                  onChange={(e) => setEmailData((prev: any) => ({ ...prev, subject: e.target.value }))}
                   className="input w-full"
                   placeholder="Your email subject line"
                 />
@@ -193,7 +193,7 @@ export default function Compose() {
                     </label>
                     <textarea
                       value={emailData.html || ''}
-                      onChange={(e) => setEmailData(prev => ({ ...prev, html: e.target.value }))}
+                      onChange={(e) => setEmailData((prev: any) => ({ ...prev, html: e.target.value }))}
                       className="input w-full h-96 font-mono text-sm"
                       placeholder="<h1>Hello {{name}}!</h1><p>Your email content here...</p>"
                     />
@@ -205,7 +205,7 @@ export default function Compose() {
                     </label>
                     <textarea
                       value={emailData.text || ''}
-                      onChange={(e) => setEmailData(prev => ({ ...prev, text: e.target.value }))}
+                      onChange={(e) => setEmailData((prev: any) => ({ ...prev, text: e.target.value }))}
                       className="input w-full h-96"
                       placeholder="Hello {{name}}!&#10;&#10;Your email content here..."
                     />
@@ -276,9 +276,9 @@ export default function Compose() {
                               const newText = text.substring(0, start) + tag.tag + text.substring(end)
                               
                               if (activeTab === 'html') {
-                                setEmailData(prev => ({ ...prev, html: newText }))
+                                setEmailData((prev: any) => ({ ...prev, html: newText }))
                               } else {
-                                setEmailData(prev => ({ ...prev, text: newText }))
+                                setEmailData((prev: any) => ({ ...prev, text: newText }))
                               }
                             }
                           }}

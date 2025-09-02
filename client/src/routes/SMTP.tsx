@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Server, ArrowRight, ArrowLeft, CheckCircle, AlertCircle, Eye, EyeOff } from 'lucide-react'
 import { WizardStepper } from '../components/WizardStepper'
-import { SMTPForm } from '../components/SMTPForm'
 import { SMTPConfig } from '@bulk-email/shared'
 
 export default function SMTP() {
@@ -121,7 +120,7 @@ export default function SMTP() {
                 {presets.map((preset) => (
                   <button
                     key={preset.name}
-                    onClick={() => setSMTPConfig(prev => ({ ...prev, ...preset.config }))}
+                    onClick={() => setSMTPConfig((prev: any) => ({ ...prev, ...preset.config }))}
                     className="p-3 text-sm border border-gray-300 rounded-md hover:border-primary-300 hover:bg-primary-50 transition-colors"
                   >
                     {preset.name}
@@ -139,7 +138,7 @@ export default function SMTP() {
                 <input
                   type="text"
                   value={smtpConfig.host}
-                  onChange={(e) => setSMTPConfig(prev => ({ ...prev, host: e.target.value }))}
+                  onChange={(e) => setSMTPConfig((prev: any) => ({ ...prev, host: e.target.value }))}
                   className="input w-full"
                   placeholder="smtp.gmail.com"
                 />
@@ -152,7 +151,7 @@ export default function SMTP() {
                 <input
                   type="number"
                   value={smtpConfig.port}
-                  onChange={(e) => setSMTPConfig(prev => ({ ...prev, port: parseInt(e.target.value) }))}
+                  onChange={(e) => setSMTPConfig((prev: any) => ({ ...prev, port: parseInt(e.target.value) }))}
                   className="input w-full"
                   placeholder="587"
                 />
@@ -165,7 +164,7 @@ export default function SMTP() {
                 <input
                   type="email"
                   value={smtpConfig.auth.user}
-                  onChange={(e) => setSMTPConfig(prev => ({ 
+                  onChange={(e) => setSMTPConfig((prev: any) => ({ 
                     ...prev, 
                     auth: { ...prev.auth, user: e.target.value }
                   }))}
@@ -182,7 +181,7 @@ export default function SMTP() {
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={smtpConfig.auth.pass}
-                    onChange={(e) => setSMTPConfig(prev => ({ 
+                    onChange={(e) => setSMTPConfig((prev: any) => ({ 
                       ...prev, 
                       auth: { ...prev.auth, pass: e.target.value }
                     }))}
@@ -210,7 +209,7 @@ export default function SMTP() {
                 <input
                   type="checkbox"
                   checked={smtpConfig.secure}
-                  onChange={(e) => setSMTPConfig(prev => ({ ...prev, secure: e.target.checked }))}
+                  onChange={(e) => setSMTPConfig((prev: any) => ({ ...prev, secure: e.target.checked }))}
                   className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                 />
                 <span className="ml-2 text-sm text-gray-700">

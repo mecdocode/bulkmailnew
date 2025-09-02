@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Trash2, Edit3, Save, X, Plus } from 'lucide-react'
 import { Recipient } from '@bulk-email/shared'
 
@@ -119,7 +119,7 @@ export function RecipientTable({ recipients, onUpdate }: RecipientTableProps) {
                             key={key}
                             className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800"
                           >
-                            {key}: {value}
+                            {key}: {String(value)}
                           </span>
                         ))}
                       </div>
