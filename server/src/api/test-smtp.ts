@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { SMTPConfig, TestSMTPResponse, ApiResponse } from '@bulk-email/shared'
 import { SMTPService } from '../lib/smtp.js'
 
-const router = Router()
+const router: Router = Router()
 
 router.post('/test-smtp', async (req, res) => {
   try {

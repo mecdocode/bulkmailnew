@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { ApiResponse } from '@bulk-email/shared'
 import { sessionVault } from '../lib/sessionVault.js'
 
-export const sessionRoute = Router()
+export const sessionRoute: Router = Router()
 
 // Get session data
 sessionRoute.get('/session/:sessionId', (req, res) => {
